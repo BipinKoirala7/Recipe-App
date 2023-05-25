@@ -1,0 +1,4 @@
+.transition-effect{
+    transition: ease-in-out;
+    transition-duration: .5s;
+}
