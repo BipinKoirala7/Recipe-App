@@ -2,3 +2,10 @@
     transition: ease-in-out;
     transition-duration: .5s;
 }
+
+.center{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}

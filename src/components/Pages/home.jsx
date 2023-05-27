@@ -8,19 +8,26 @@ export function Home() {
     const text = useRef()
     let searchedContent
     useEffect(() => {
-        async function fetchRecipeData() {
-            const res =await fetch(
-                `https://api.edamam.com/search?q=${query}&app_id=1c0b4f3e&app_key=8b6739af5fb1802f1b25e59f4fa41b4c`
-              );
-            const data = await res.json()
-            setRecipeFromApi(data.hits)
+        function fetchRecipeData() {
+          try {
+            fetch(
+              `https://api.edamam.com/search?q=${query}&app_id=1c0b4f3e&app_key=8b6739af5fb1802f1b25e59f4fa41b4c`
+            )
+            .then((res) => res.json())
+            .then((data) => {
+              setRecipeFromApi(data.hits)
+            })
+            }
+          catch (err) {
+            text.current = err
+          }
       }
       query && fetchRecipeData()
     }, [query])
     
   function showRecipesFromAPi() {
-        if (recipeFromAPi == []){
-          searchedContent = <div>Search for Everykind of Recipe</div>
+        if (recipeFromAPi.length === 0){
+          searchedContent = <div className="center font-bold">Search for Everykind of Recipe....</div>
        }
         else{
           searchedContent = recipeFromAPi.map((item, index) => <RecipeListStyle recipe={item} key={index} />)
@@ -30,9 +37,9 @@ export function Home() {
 
     function handleClick() {
         setQuery(text.current)
-    }
+  }
     return (
-      <div className="flex flex-col">
+      <div className="flex flex-col h-[100%]">
         <div className=" flex w-[100%] justify-between items-center bg-red-500 px-4 py-4 text-white">
           <p className="text-[2rem] ">Search a Recipe</p>
           <div className="flex justify-evenly items-center">
@@ -45,7 +52,7 @@ export function Home() {
             <BsSearch size="1.5em" cursor={"pointer"} onClick={handleClick} />
           </div>
         </div>
-        <div className="grid grid-cols-searchGrid px-8 py-4 gap-4 trnsition-effect relative">
+        <div className="grid w-[100%] h-[100%] grid-cols-searchGrid px-8 py-4 gap-4 trnsition-effect relative">
           {searchedContent}
         </div>
       </div>
