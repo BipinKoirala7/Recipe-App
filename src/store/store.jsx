@@ -1,11 +1,18 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { recipeListSlice } from "./Slices/recipeListSlice";
+import { setupListeners } from '@reduxjs/toolkit/query/react'
+import { recipeList } from "./Apis/recipeListApi";
 
 const store = configureStore({
     reducer: {
-        [recipeListSlice.name] : recipeListSlice.reducer,
+        [recipeList.reducerPath]:recipeList.reducer
+    },
+    middleware: (getDefaultMiddleware) => {
+        return getDefaultMiddleware()
+        .concat(recipeList.middleware)
     }
 })
 
+setupListeners(store.dispatch)
+
 export { store }
-export * from './Slices/recipeListSlice'
+export * from './Apis/recipeListApi'

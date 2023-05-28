@@ -1,21 +1,21 @@
-import { Home } from './components/Pages/home'
-import { useEffect } from 'react'
-import './App.css'
+import { Home } from "./components/Pages/Home/home";
+import "./App.css";
+import NavBar from "./components/NavBar";
+import Search from "./components/Pages/Search/Search";
+import FavRecipe from "./components/Pages/favRecipes/favRecipe";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
-  // useEffect(() => {
-  //   async function fetchData() {
-
-  //     console.log(data)
-  //   }
-  //   fetchData()
-  // },[])
-
   return (
-    <div className='max-w-screen h-screen'>
-      <Home />
+    <div className="max-w-screen h-screen">
+      <NavBar />
+      <Routes>
+        <Route path="/" exact element={<Home />} />
+        <Route path="/search" element={<Search />} />
+        <Route path="/favRecipe" element={<FavRecipe />} />
+      </Routes>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

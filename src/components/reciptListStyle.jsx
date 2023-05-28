@@ -1,11 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useAddrecipeMutation ,useRemoveRecipeMutation} from "../store/store";
 
-export default function recipeListStyle(props) {
-    const [isClicked, setIsCliked] = useState(false);
-    const { recipe } = props.recipe
+export default function RecipeListStyle(props) {
+  const [isClicked, setIsCliked] = useState(false);
+  const { recipe } = props.recipe
+  const [addRecipe , isLoading , isError ]= useAddrecipeMutation()
+  
+  useEffect(() => {
+    isClicked ? setIsCliked(false) : ''
+  },[props])
 
     function handleClick() {
-        setIsCliked(true)
+      setIsCliked(true)
+      addRecipe(recipe)
     }
 
     return (
