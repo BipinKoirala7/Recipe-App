@@ -15,8 +15,7 @@ export default function Search() {
           `https://api.edamam.com/search?q=${query}&app_id=1c0b4f3e&app_key=8b6739af5fb1802f1b25e59f4fa41b4c`
         );
         const data =await response.json()
-        setRecipeFromApi(data.hits);
-        console.log(data.hits[0])
+        setRecipeFromApi(data.hits)
       } catch (err) {
         error.current = err;
       }
@@ -26,6 +25,7 @@ export default function Search() {
 
   function handleClick() {
     setQuery(text.current);
+    text.current = ''
   }
 
   return (

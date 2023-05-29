@@ -8,7 +8,10 @@ const recipeList = createApi({
   }),
   endpoints(builder) {
    return {
-      fetchList: builder.query({
+     fetchList: builder.query({
+       providesTags: (result, error, recipe) => {
+         return ['favChanged']
+        },
          query: () => {
             return {
                 url: "/recipiesList",
@@ -22,19 +25,20 @@ const recipeList = createApi({
                  method: "POST",
                  url: "/recipiesList",
                  body: {
-                     label: recipe.label,
-                     image: recipe.image,
-                     infoLink: recipe.shareAs
+                     recipe:recipe
                  },
                };
            }
        }),
-       removeRecipe: builder.mutation({
-           query: (recipe) => {
+     removeRecipe: builder.mutation({
+       invalidatesTags: (result, error, array) => {
+         return ['favChanged'];
+         },
+           query: (recipeId) => {
                return {
-                   method: 'DELETE',
-                   url: `/recipiesList${recipe.id}`,
-               }
+                 method: "DELETE",
+                 url: `/recipiesList/${recipeId}`,
+               };
            }
        })
     }

@@ -4,11 +4,11 @@ import { recipeList } from "./Apis/recipeListApi";
 
 const store = configureStore({
     reducer: {
-        [recipeList.reducerPath]:recipeList.reducer
+        [recipeList.reducerPath]: recipeList.reducer,
     },
     middleware: (getDefaultMiddleware) => {
         return getDefaultMiddleware()
-        .concat(recipeList.middleware)
+            .concat(recipeList.middleware)
     }
 })
 
